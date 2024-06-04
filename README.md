@@ -81,12 +81,12 @@
 				location: 'https://yandex.ru/maps/47/nizhny-novgorod/house/puteyskaya_ulitsa_23b/YEoYfgFhTUMCQFtsfX54c3xhZw==/?ll=43.861466%2C56.292023&z=17'
 				timeSchedule: {
 					'monday': '10:00-20:00',
-		      'tuesday':'10:00-20:00'
-		      'wednesday': '10:00-20:00'
-		      'thurday': '10:00-20:00'
-		      'friday': '10:00-20:00'
-		      'saturday': '10:00-20:00'
-		      'sunday': '10:00-20:00'
+				        'tuesday':'10:00-20:00'
+				        'wednesday': '10:00-20:00'
+				        'thurday': '10:00-20:00'
+				        'friday': '10:00-20:00'
+				        'saturday': '10:00-20:00'
+				        'sunday': '10:00-20:00'
 				}
 			}
 		]
@@ -190,12 +190,12 @@ None
 	* **Content:**
 		```
 		{
-    		slug:  'sbor-igrushek',
-    		title:  'Сбор игрушек',
-    		shortDescription: 'Здесь короткое описание для раздела Сбор игрушек',
-    		description: 'Здесь будет текст для раздела Сбор игрушек',
-    		images: ['http://dummyimage.com/120'],
-	  }
+	    		slug:  'sbor-igrushek',
+	    		title:  'Сбор игрушек',
+	    		shortDescription: 'Здесь короткое описание для раздела Сбор игрушек',
+	    		description: 'Здесь будет текст для раздела Сбор игрушек',
+	    		images: ['http://dummyimage.com/120'],
+	  	}
 		```
 ### Метод получения данных всех разделов сайта
 Возвращает ```json``` с данными для  **разделов сайта**.
@@ -216,11 +216,11 @@ None
 		```
   		[
   			{
-    			slug:  'sbor-igrushek',
-    			title:  'Сбор игрушек',
-    			shortDescription: 'Здесь короткое описание для раздела Сбор игрушек',
-    			description: 'Здесь будет текст для раздела Сбор игрушек',
-    			images: ['http://dummyimage.com/120'],
+	    			slug:  'sbor-igrushek',
+	    			title:  'Сбор игрушек',
+	    			shortDescription: 'Здесь короткое описание для раздела Сбор игрушек',
+	    			description: 'Здесь будет текст для раздела Сбор игрушек',
+	    			images: ['http://dummyimage.com/120'],
   			}
   		]
 		```
@@ -264,10 +264,10 @@ None
 	* **Content:**
 	```
 		{
-       idCallme: '3422b448-2460-4fd2-9183-8000de6f8343',
-       name:  'Аврора',
-       phone: '8-977-777-77-77',
-       email: 'tryl@email.com',
-       message: 'Хочу узнать про запись на МК',
+		       idCallme: '3422b448-2460-4fd2-9183-8000de6f8343',
+		       name:  'Аврора',
+		       phone: '8-977-777-77-77',
+		       email: 'tryl@email.com',
+		       message: 'Хочу узнать про запись на МК',
 		}
 	```
