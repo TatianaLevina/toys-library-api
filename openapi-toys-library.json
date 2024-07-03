@@ -13,23 +13,51 @@
   ],
   "tags": [
     {
-      "name": "masterclass",
+      "name": "master class",
       "description": "Операции с мастер-классами"
     },
     {
-      "name": "callme",
+      "name": "callMe",
       "description": "Операции с данными для обратного звонка посетителям сайта"
     },
     {
       "name": "feedback",
       "description": "Операции с отзывами"
+    },
+    {
+      "name": "employee",
+      "description": "Операции с сотрудниками организации"
+    },
+    {
+      "name": "contact",
+      "description": "Операции с контактными данными организации"
+    },
+    {
+      "name": "eco",
+      "description": "Операции с контентом раздела Экология"
+    },
+    {
+      "name": "membership",
+      "description": "Операции с абонементами"
+    },
+    {
+      "name": "start screen",
+      "description": "Операции с контентом стартового экрана"
+    },
+    {
+      "name": "sections",
+      "description": "Операции с разделами сайта"
+    },
+    {
+      "name": "gallery",
+      "description": "Операции с изображениями для галереи"
     }
   ],
   "paths": {
-    "/masterclasses": {
+    "/master-classes": {
       "get": {
         "tags": [
-          "masterclass"
+          "master class"
         ],
         "summary": "Метод получения всех активных мастер-классов",
         "description": "Мастер-классы отсортированы по дате (от новых к старым)",
@@ -44,7 +72,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Успешное получение мастер-классов",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -53,10 +81,20 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "400": {
+            "description": "INCORRECT_PARAMETERS",
             "content": {
-              "application/json": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -66,10 +104,10 @@
         }
       }
     },
-    "/callme": {
+    "/call-me": {
       "post": {
         "tags": [
-          "callme"
+          "callMe"
         ],
         "summary": "Создать обратный звонок",
         "description": "Создание заявки для обратного звонка",
@@ -78,27 +116,27 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Callme"
+                "$ref": "#/components/schemas/CallMeRequestBody"
               }
             }
           },
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "Успешное добавление данных для обратного звонка",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Callme"
+                  "$ref": "#/components/schemas/CallMe"
                 }
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "500": {
+            "description": "INTERNAL SERVER ERROR",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -126,7 +164,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Успешное получение отзывов",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -135,10 +173,20 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "400": {
+            "description": "INCORRECT_PARAMETERS",
             "content": {
-              "application/json": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -158,7 +206,7 @@
         "operationId": "getMemberships",
         "responses": {
           "200": {
-            "description": "Успешное получение абонементов",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -167,10 +215,10 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "404": {
+            "description": "NOT_FOUND",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -190,7 +238,7 @@
         "operationId": "getEmployees",
         "responses": {
           "200": {
-            "description": "Успешное получение сотрудников",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -199,10 +247,10 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "404": {
+            "description": "NOT_FOUND",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -230,7 +278,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Успешное получение данных",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -239,10 +287,20 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "400": {
+            "description": "INCORRECT_PARAMETERS",
             "content": {
-              "application/json": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -262,7 +320,7 @@
         "operationId": "getEcoContent",
         "responses": {
           "200": {
-            "description": "Успешное получение данных",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -271,10 +329,10 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "404": {
+            "description": "NOT_FOUND",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -284,10 +342,10 @@
         }
       }
     },
-    "/startscreen": {
+    "/start-screen": {
       "get": {
         "tags": [
-          "startscreen"
+          "start screen"
         ],
         "summary": "Метод получения контента стартового экрана",
         "operationId": "getStartScreenContent",
@@ -302,10 +360,10 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "404": {
+            "description": "NOT_FOUND",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -315,7 +373,7 @@
         }
       }
     },
-    "/slug": {
+    "/sections/slug": {
       "get": {
         "tags": [
           "sections"
@@ -333,10 +391,20 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "400": {
+            "description": "INCORRECT_PARAMETERS",
             "content": {
-              "application/json": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -364,10 +432,10 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "404": {
+            "description": "NOT_FOUND",
             "content": {
-              "application/json": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -384,6 +452,14 @@
         ],
         "summary": "Метод получения изображений для галерии",
         "operationId": "getGallery",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OffsetParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParam"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Успешное получение данных",
@@ -395,10 +471,20 @@
               }
             }
           },
-          "default": {
-            "description": "Все ошибки",
+          "400": {
+            "description": "INCORRECT_PARAMETERS",
             "content": {
-              "application/json": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "content": {
+              "application/problem+json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
@@ -483,14 +569,31 @@
           "$ref": "#/components/schemas/MasterClass"
         }
       },
-      "Callme": {
+      "CallMeRequestBody": {
         "type": "object",
         "required": [
           "name",
           "phone"
         ],
         "properties": {
-          "idCallme": {
+          "phone": {
+            "type": "string",
+            "example": "8-977-777-77-77"
+          },
+          "message": {
+            "type": "string",
+            "example": "Хочу узнать про запись на МК"
+          }
+        }
+      },
+      "CallMe": {
+        "type": "object",
+        "required": [
+          "name",
+          "phone"
+        ],
+        "properties": {
+          "idCallMe": {
             "type": "string",
             "example": "3422b448-2460-4fd2-9183-8000de6f8343"
           },
@@ -656,7 +759,7 @@
                 "type": "string",
                 "example": "10:00-20:00"
               },
-              "thurday": {
+              "thursday": {
                 "type": "string",
                 "example": "10:00-20:00"
               },
@@ -765,15 +868,25 @@
       "Error": {
         "type": "object",
         "required": [
-          "code",
-          "message"
+          "title",
+          "detailError",
+          "request"
         ],
         "properties": {
-          "code": {
-            "type": "integer"
+          "title": {
+            "description": "Краткое описание проблемы, понятное человеку",
+            "type": "string",
+            "example": "Entity not found"
           },
-          "message": {
-            "type": "string"
+          "detailError": {
+            "description": "Описание конкретно возникшей ошибки, понятное человеку",
+            "type": "string",
+            "example": "Entity [] with id = [123456] not found. You MUST use POST to add entity instead of PUT"
+          },
+          "request": {
+            "description": "Метод и URL запроса",
+            "type": "string",
+            "example": "PUT /posts/123456"
           }
         }
       }

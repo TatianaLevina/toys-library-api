@@ -3,45 +3,66 @@ info:
   title: Библиотека игрушек
   description: Web interface для Библиотеки игрушек
   version: 0.0.1
-  
+
 servers:
   - url: https://localhost:3000/api/v1
     description: Dev Server
-tags: 
-  - name: masterclass
+tags:
+  - name: master class
     description: Операции с мастер-классами
-  - name: callme
+  - name: callMe
     description: Операции с данными для обратного звонка посетителям сайта
   - name: feedback
     description: Операции с отзывами
+  - name: employee
+    description: Операции с сотрудниками организации
+  - name: contact
+    description: Операции с контактными данными организации
+  - name: eco
+    description: Операции с контентом раздела Экология
+  - name: membership
+    description: Операции с абонементами
+  - name: start screen
+    description: Операции с контентом стартового экрана
+  - name: sections
+    description: Операции с разделами сайта
+  - name: gallery
+    description: Операции с изображениями для галереи
 paths:
-  /masterclasses:
+  /master-classes:
     get:
       tags:
-        - masterclass
+        - master class
       summary: Метод получения всех активных мастер-классов
       description: Мастер-классы отсортированы по дате (от новых к старым)
       operationId: getMasterClasses
       parameters:
-        - $ref: '#/components/parameters/OffsetParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/OffsetParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
-          description: Успешное получение мастер-классов
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MasterClasses'         
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/MasterClasses"
+        "400":
+          description: INCORRECT_PARAMETERS
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /callme:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: NOT_FOUND
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /call-me:
     post:
       tags:
-        - callme
+        - callMe
       summary: Создать обратный звонок
       description: Создание заявки для обратного звонка
       operationId: addCallback
@@ -49,21 +70,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Callme'
+              $ref: "#/components/schemas/CallMeRequestBody"
         required: true
       responses:
-        '200':
-          description: Успешное добавление данных для обратного звонка
-          content:
-           application/json:
-            schema:
-              $ref: '#/components/schemas/Callme'
-        'default':
-          description: Все ошибки
+        "201":
+          description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/CallMe"
+        "500":
+          description: INTERNAL SERVER ERROR
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /feedbacks:
     get:
       tags:
@@ -72,21 +93,27 @@ paths:
       description: Отзывы отсортированы по дате для отображения на сайте (от новых к старым)
       operationId: getFeedbacks
       parameters:
-        - $ref: '#/components/parameters/OffsetParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/OffsetParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
-          description: Успешное получение отзывов
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Feedbacks'         
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/Feedbacks"
+        "400":
+          description: INCORRECT_PARAMETERS
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: NOT_FOUND
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /memberships:
     get:
       tags:
@@ -95,18 +122,18 @@ paths:
       description: Абонементы
       operationId: getMemberships
       responses:
-        '200':
-          description: Успешное получение абонементов
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Memberships'         
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/Memberships"
+        "404":
+          description: NOT_FOUND
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /employees:
     get:
       tags:
@@ -115,18 +142,18 @@ paths:
       description: Абонементы
       operationId: getEmployees
       responses:
-        '200':
-          description: Успешное получение сотрудников
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Employees'         
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/Employees"
+        "404":
+          description: NOT_FOUND
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /contacts:
     get:
       tags:
@@ -135,21 +162,27 @@ paths:
       description: На данный момент организация одна и контакт 1
       operationId: getContacts
       parameters:
-        - $ref: '#/components/parameters/OffsetParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/OffsetParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
-          description: Успешное получение данных
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Contacts'         
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/Contacts"
+        "400":
+          description: INCORRECT_PARAMETERS
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: NOT_FOUND
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /eco:
     get:
       tags:
@@ -158,56 +191,62 @@ paths:
       description: Блок экология состоит из текстовых блоков. Данный метод позволяет получить массив всех текстовых блоков
       operationId: getEcoContent
       responses:
-        '200':
-          description: Успешное получение данных
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                 $ref: '#/components/schemas/EcoContent' 
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/EcoContent"
+        "404":
+          description: NOT_FOUND
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /startscreen:
+                $ref: "#/components/schemas/Error"
+  /start-screen:
     get:
       tags:
-        - startscreen
+        - start screen
       summary: Метод получения контента стартового экрана
       operationId: getStartScreenContent
       responses:
-        '200':
+        "200":
           description: Успешное получение данных
           content:
             application/json:
               schema:
-                 $ref: '#/components/schemas/StartScreen' 
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/StartScreen"
+        "404":
+          description: NOT_FOUND
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /slug:
+                $ref: "#/components/schemas/Error"
+  /sections/slug:
     get:
       tags:
         - sections
       summary: Метод получения контента раздела сайта
       operationId: getSectionBySlug
       responses:
-        '200':
+        "200":
           description: Успешное получение данных
           content:
             application/json:
               schema:
-                 $ref: '#/components/schemas/Section' 
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/Section"
+        "400":
+          description: INCORRECT_PARAMETERS
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: NOT_FOUND
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /sections:
     get:
       tags:
@@ -215,37 +254,46 @@ paths:
       summary: Метод получения контента всех разделов сайта
       operationId: getSections
       responses:
-        '200':
+        "200":
           description: Успешное получение данных
           content:
             application/json:
               schema:
-                 $ref: '#/components/schemas/Sections' 
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/Sections"
+        "404":
+          description: NOT_FOUND
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /gallery:
     get:
       tags:
         - gallery
       summary: Метод получения изображений для галерии
       operationId: getGallery
+      parameters:
+        - $ref: "#/components/parameters/OffsetParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: Успешное получение данных
           content:
             application/json:
               schema:
-                 $ref: '#/components/schemas/Images' 
-        'default':
-          description: Все ошибки
+                $ref: "#/components/schemas/Images"
+        "400":
+          description: INCORRECT_PARAMETERS
           content:
-            application/json:
+            application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: NOT_FOUND
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   parameters:
     OffsetParam:
@@ -272,7 +320,7 @@ components:
       required: true
       schema:
         type: string
-        
+
   schemas:
     MasterClass:
       type: object
@@ -282,48 +330,60 @@ components:
           example: 10
         name:
           type: string
-          example: 'Мыловарение'
+          example: "Мыловарение"
         shortDescription:
           type: string
-          example: 'Здесь короткое описание МК Мыловарения'
+          example: "Здесь короткое описание МК Мыловарения"
         description:
           type: string
-          example: 'Здесь будет текст описывающий МК Мыловарения'
+          example: "Здесь будет текст описывающий МК Мыловарения"
         price:
           type: number
           example: 1990
         startDate:
           type: string
           format: date
-          example: '2011-10-05T14:48:00.000Z'
+          example: "2011-10-05T14:48:00.000Z"
         imageUrlMasterClass:
           type: string
-          example: 'http://dummyimage.com/120'
+          example: "http://dummyimage.com/120"
     MasterClasses:
       type: array
       items:
         $ref: "#/components/schemas/MasterClass"
-    Callme:
+    CallMeRequestBody:
       type: object
       required:
         - name
         - phone
       properties:
-        idCallme:
+        phone:
+          type: string
+          example: "8-977-777-77-77"
+        message:
+          type: string
+          example: "Хочу узнать про запись на МК"
+    CallMe:
+      type: object
+      required:
+        - name
+        - phone
+      properties:
+        idCallMe:
           type: string
           example: 3422b448-2460-4fd2-9183-8000de6f8343
         name:
           type: string
-          example: 'Аврора'
+          example: "Аврора"
         phone:
           type: string
-          example: '8-977-777-77-77'
+          example: "8-977-777-77-77"
         email:
           type: string
-          example: 'tryl@email.com'
+          example: "tryl@email.com"
         message:
           type: string
-          example: 'Хочу узнать про запись на МК'
+          example: "Хочу узнать про запись на МК"
     Feedback:
       type: object
       properties:
@@ -332,13 +392,13 @@ components:
           example: 8
         title:
           type: string
-          example: 'Отзывы'
+          example: "Отзывы"
         subtitle:
           type: string
-          example: 'Мы ценим каждого'
+          example: "Мы ценим каждого"
         imageURLFeedback:
           type: string
-          example: 'http://dummyimage.com/120'
+          example: "http://dummyimage.com/120"
     Feedbacks:
       type: array
       items:
@@ -357,10 +417,10 @@ components:
             - advanced
         name:
           type: string
-          example: 'Базовый'
+          example: "Базовый"
         description:
           type: string
-          example: 'Здесь будет текст описывающий Базовый абонемент'
+          example: "Здесь будет текст описывающий Базовый абонемент"
         price:
           type: number
           example: 590
@@ -377,26 +437,26 @@ components:
           example: 10
         lastName:
           type: string
-          example: 'Сергеев'
+          example: "Сергеев"
         firstName:
           type: string
-          example: 'Иван'
+          example: "Иван"
         patronymic:
           type: string
-          example: 'Петрович'
+          example: "Петрович"
         position:
           type: string
-          example: 'Мастер по ремонту игрушек'
+          example: "Мастер по ремонту игрушек"
         description:
           type: string
-          example: 'Здесь будет текст про выдающиеся способности мастера по ремонту'
+          example: "Здесь будет текст про выдающиеся способности мастера по ремонту"
         avatarUrl:
           type: string
-          example: 'http://dummyimage.com/120'
+          example: "http://dummyimage.com/120"
     Employees:
       type: array
       items:
-        $ref: '#/components/schemas/Employee'
+        $ref: "#/components/schemas/Employee"
     Contact:
       type: object
       properties:
@@ -406,55 +466,55 @@ components:
           example: 0
         phoneNumber:
           type: string
-          example: '8-977-777-77-77'
+          example: "8-977-777-77-77"
         email:
           type: string
           example: library@email.com
         links:
-          $ref: '#/components/schemas/Links'
+          $ref: "#/components/schemas/Links"
         address:
           type: string
-          example: 'г.Нижний Новгород ул.Котейкино, 23Б'
+          example: "г.Нижний Новгород ул.Котейкино, 23Б"
         location:
           type: string
-          example: 'https://yandex.ru/maps/47/nizhny-novgorod/house/puteyskaya_ulitsa_23b/YEoYfgFhTUMCQFtsfX54c3xhZw==/?ll=43.861466%2C56.292023&z=17'
+          example: "https://yandex.ru/maps/47/nizhny-novgorod/house/puteyskaya_ulitsa_23b/YEoYfgFhTUMCQFtsfX54c3xhZw==/?ll=43.861466%2C56.292023&z=17"
         TimeSchedule:
           type: object
           properties:
             monday:
               type: string
-              example: '10:00-20:00'
+              example: "10:00-20:00"
             tuesday:
               type: string
-              example: '10:00-20:00'
+              example: "10:00-20:00"
             wednesday:
               type: string
-              example: '10:00-20:00'
-            thurday:
+              example: "10:00-20:00"
+            thursday:
               type: string
-              example: '10:00-20:00'
+              example: "10:00-20:00"
             friday:
               type: string
-              example: '10:00-20:00'
+              example: "10:00-20:00"
             saturday:
               type: string
-              example: '10:00-20:00'
+              example: "10:00-20:00"
             sunday:
               type: string
-              example: '10:00-20:00'
-            
+              example: "10:00-20:00"
+
     Links:
       properties:
         vkLink:
           type: string
-          example: 'https://vk.com/twotoy'
+          example: "https://vk.com/twotoy"
         telegramLink:
           type: string
-          example: 'https://t.me/username'
+          example: "https://t.me/username"
     Contacts:
       type: array
       items:
-        $ref: '#/components/schemas/Contact'
+        $ref: "#/components/schemas/Contact"
     Eco:
       type: object
       properties:
@@ -463,11 +523,11 @@ components:
           example: 0
         paragraphText:
           type: string
-          example: 'Дадим вторую жизнь вашим игрушкам'
+          example: "Дадим вторую жизнь вашим игрушкам"
     EcoContent:
       type: array
       items:
-        $ref: '#/components/schemas/Eco'
+        $ref: "#/components/schemas/Eco"
     StartScreen:
       type: object
       properties:
@@ -475,40 +535,49 @@ components:
           type: array
           items:
             type: string
-            example: 'Новая игрушка хоть каждый день. Вы можете играть, делиться и меняться игрушками вместе с нами!'
+            example: "Новая игрушка хоть каждый день. Вы можете играть, делиться и меняться игрушками вместе с нами!"
     Section:
       type: object
       properties:
         slug:
           type: string
-          example: 'collecting-toys'
+          example: "collecting-toys"
         title:
           type: string
-          example: 'Сбор игрушек'
+          example: "Сбор игрушек"
         shortDescription:
           type: string
-          example: 'Здесь короткое описание для раздела Сбор игрушек'
+          example: "Здесь короткое описание для раздела Сбор игрушек"
         description:
           type: string
-          example: 'Здесь будет текст для раздела Сбор игрушек'
+          example: "Здесь будет текст для раздела Сбор игрушек"
         images:
-            $ref: '#/components/schemas/Images'
+          $ref: "#/components/schemas/Images"
     Images:
       type: array
       items:
         type: string
-        example: 'http://dummyimage.com/120'
+        example: "http://dummyimage.com/120"
     Sections:
       type: array
       items:
-        $ref: '#/components/schemas/Section'
+        $ref: "#/components/schemas/Section"
     Error:
       type: object
       required:
-        - code
-        - message
+        - title
+        - detailError
+        - request
       properties:
-        code:
-          type: integer
-        message:
+        title:
+          description: Краткое описание проблемы, понятное человеку
           type: string
+          example: Entity not found
+        detailError:
+          description: Описание конкретно возникшей ошибки, понятное человеку
+          type: string
+          example: Entity [] with id = [123456] not found. You MUST use POST to add entity instead of PUT
+        request:
+          description: Метод и URL запроса
+          type: string
+          example: PUT /posts/123456
